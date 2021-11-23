@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.signal
+import matplotlib.pyplot as plt
 
 
 def _buildGaussianVec(sizeOfVector):
@@ -11,6 +12,8 @@ def _buildGaussianVec(sizeOfVector):
         resultVec = scipy.signal.convolve(resultVec, unitVec)
     return resultVec/np.sum(resultVec)
 
+
+
 def _reduceImage(image, filter_vec):
     """
 
@@ -18,12 +21,18 @@ def _reduceImage(image, filter_vec):
     :return: reduced image
     """
     # Step 1: Blur the image:
-    blurredImage = scipy.ndimage.filters.convolve(filter_vec,image)
-    blurredImage += scipy.ndimage.filters.convolve(filter_vec.T,blurredImage)
+    blurredImage = _blurImage(filter_vec, image)
 
     # Step 2: Sub-sample every 2nd pixel of the image, every 2nd row, from the blurred image:
     reducedImage = blurredImage[::2,::2]
     return reducedImage
+
+
+def _blurImage(filter_vec, image):
+    blurredImage = scipy.ndimage.filters.convolve(filter_vec, image)
+    blurredImage += scipy.ndimage.filters.convolve(filter_vec.T, blurredImage)
+    return blurredImage
+
 
 def _expandImage(image, filter_vec):
     """
@@ -32,7 +41,14 @@ def _expandImage(image, filter_vec):
     :param filter_vec:
     :return:
     """
-    
+    # Step 1: Expand the image using zeros on odd pixels:
+    expandedImage = np.zeros(image.shape*2)
+    cols = np.arange(image.shape[1])
+    expandedImage[::2,cols] = image[:,cols]
+
+    # Step 2: Blur the expanded image:
+    blurredExpandedImage = _blurImage(filter_vec,expandedImage)*2
+    return blurredExpandedImage
 
 
 
@@ -68,23 +84,26 @@ def build_laplacian_pyramid(im, max_levels, filter_size):
     :param filter_size:
     :return:
     """
-    pass
+    gauPyramid = build_gaussian_pyramid(im, max_levels, filter_size )
+    pyr = []
+    filter_vec = _buildGaussianVec(filter_size)
+    for i in range(len(gauPyramid)):
+        pyr.append(gauPyramid[i] - _expandImage(gauPyramid[i+1],filter_vec))
+    pyr.append(gauPyramid[-1])
+    return pyr
 
 
 
 def laplacian_to_image(lpyr, filter_vec, coeff):
-    pass
+    """
+    :param lpyr:
+    :param filter_vec:
+    :param coeff:
+    :return:
+    """
+    resultImage = lpyr[-1]*coeff[-1]
+    for i in range(len(lpyr)-1):
+        resultImage = coeff[-i]*lpyr[-i] + _expandImage(resultImage,filter_vec)
 
-
-
-def render_pyramid(pyr, levels):
-    pass
-
-
-def display_pyramid(pyr, levels):
-    pass
-
-
-def pyramid_blending(im1, im2, mask, max_levels, filter_size_im, filter_size_mask):
-    pass
+    return resultImage
 
