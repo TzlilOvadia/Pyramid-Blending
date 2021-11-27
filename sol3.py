@@ -251,7 +251,7 @@ def pyramid_blending(im1, im2, mask, max_levels, filter_size_im, filter_size_mas
         L_c = np.multiply(G, L_a) + np.multiply(np.subtract(1, G), L_b)
         resImg = laplacian_to_image(L_c, filter_vec, np.ones(max_levels))
 
-    return resImg
+    return np.clip(resImg,0,1)
 
 
 def blending_example1():
@@ -259,9 +259,9 @@ def blending_example1():
     Game of CS
     """
 
-    im1 = read_image( relpath("external/lect.png"),RGB)
+    im1 = read_image( relpath("external/lect.jpg"),RGB)
     im2 = read_image( relpath("external/final.jpg"),RGB)
-    mask = read_image(relpath("external/masks-3.png"), GRAY_SCALE).astype(bool)
+    mask = read_image(relpath("external/masks-3.jpg"), GRAY_SCALE).astype(bool)
     blend_image = pyramid_blending(im1, im2, mask, 3, 30, 5)
     plt.subplot(2, 2, 1)
     plt.imshow(im1)
@@ -280,9 +280,9 @@ def blending_example1():
 
 def blending_example2():
 
-    im1 = read_image(relpath("external/koch.png"),RGB)
-    im2 = read_image(relpath("external/markoch.png"),RGB)
-    mask = read_image(relpath("external/maskoo.png"), GRAY_SCALE).astype(bool)
+    im1 = read_image(relpath("external/koch.jpg"),RGB)
+    im2 = read_image(relpath("external/markoch.jpg"),RGB)
+    mask = read_image(relpath("external/maskoo.jpg"), GRAY_SCALE).astype(bool)
     blend_image = pyramid_blending(im1, im2, mask, 3, 30, 5)
 
     plt.subplot(2, 2, 1)
@@ -303,3 +303,8 @@ def blending_example2():
 def relpath(filename):
     return os.path.join(os.path.dirname(__file__), filename)
 
+
+
+if __name__ == '__main__':
+    blending_example1()
+    blending_example2()
