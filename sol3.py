@@ -258,43 +258,35 @@ def blending_example1():
     """ Title:
     Game of CS
     """
-
+    fig, ax = plt.subplots(2,2)
     im1 = read_image( relpath("external/lect.jpg"),RGB)
     im2 = read_image( relpath("external/final.jpg"),RGB)
     mask = read_image(relpath("external/masks-3.jpg"), GRAY_SCALE).astype(bool)
     blend_image = pyramid_blending(im1, im2, mask, 3, 30, 5)
-    plt.subplot(2, 2, 1)
-    plt.imshow(im1)
-    plt.subplot(2,2,2)
-    plt.imshow(im2)
-
-    plt.subplot(2,2,3)
-    plt.imshow(mask,cmap='gray')
-
-    plt.subplot(2, 2, 4)
-    plt.imshow(blend_image)
+    ax[0,0].imshow(im1)
+    ax[0,1].imshow(im2)
+    ax[1,0].imshow(mask,cmap='gray')
+    ax[1,1].imshow(blend_image)
+    ax[1,1].set_title("Games of CS (Mis'hakey Ha CS)")
     plt.show()
 
     return im1, im2, mask, blend_image
 
 
 def blending_example2():
-
+    
+    fig,ax = plt.subplots(2,2)
     im1 = read_image(relpath("external/koch.jpg"),RGB)
     im2 = read_image(relpath("external/markoch.jpg"),RGB)
     mask = read_image(relpath("external/maskoo.jpg"), GRAY_SCALE).astype(bool)
     blend_image = pyramid_blending(im1, im2, mask, 3, 30, 5)
 
-    plt.subplot(2, 2, 1)
-    plt.imshow(im1)
-    plt.subplot(2,2,2)
-    plt.imshow(im2)
 
-    plt.subplot(2,2,3)
-    plt.imshow(mask,cmap='gray')
-
-    plt.subplot(2, 2, 4)
-    plt.imshow(blend_image)
+    ax[0,0].imshow(im1)
+    ax[0,1].imshow(im2)
+    ax[1,0].imshow(mask,cmap='gray')
+    ax[1,1].imshow(blend_image)
+    ax[1, 1].set_title("Markoch")
     plt.show()
 
     return im1, im2, mask, blend_image
