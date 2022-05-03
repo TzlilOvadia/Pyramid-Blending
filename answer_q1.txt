@@ -1,4 +1,0 @@
-Q1: What does it mean to multiply each level in a different value? What do we try to control on?
-
-We want to control amount of noise (or in other words, the amount of frequencies) we want to allow to bring
-from each level into the final image

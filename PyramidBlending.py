@@ -294,3 +294,7 @@ def blending_example2():
 
 def relpath(filename):
     return os.path.join(os.path.dirname(__file__), filename)
+
+if __name__ == "__main__":
+    x = _buildGaussianVec(5)
+    print(x)

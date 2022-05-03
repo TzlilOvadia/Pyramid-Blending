@@ -1,3 +1,0 @@
-Q3: Blending is performed with a varying number of pyramid levels (max_levels = 1,2,3,4,5,...):
-
-The more levels we have in the pyramid, the smoother the borders stichies looks.
