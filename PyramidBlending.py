@@ -298,3 +298,4 @@ def relpath(filename):
 if __name__ == "__main__":
     x = _buildGaussianVec(5)
     print(x)
+    pyramid_blending()
