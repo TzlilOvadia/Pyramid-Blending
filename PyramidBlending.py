@@ -1,10 +1,9 @@
 import os
-
 import numpy as np
 import scipy.signal
 import matplotlib.pyplot as plt
-import skimage
-
+from skimage.color import rgb2gray
+import pickle
 RGB = 2
 GRAY_SCALE = 1
 RGB_FORMAT = 3
@@ -205,7 +204,8 @@ def read_image(filename, representation):
     resultImage = np.array(tempImage)
 
     if representation == GRAY_SCALE:
-        resultImage = skimage.color.rgb2gray(tempImage)
+        resultImage = rgb2gray(tempImage)
+
     elif representation == RGB:
         resultImage = tempImage
     if resultImage.max() > 1:
@@ -263,6 +263,9 @@ def blending_example1():
     im2 = read_image( relpath("external/final.jpg"),RGB)
     mask = read_image(relpath("external/masks-3.jpg"), GRAY_SCALE).astype(bool)
     blend_image = pyramid_blending(im1, im2, mask, 3, 30, 5)
+    plt.imshow(blend_image)
+    plt.show()
+
     ax[0,0].imshow(im1)
     ax[0,1].imshow(im2)
     ax[1,0].imshow(mask,cmap='gray')
@@ -274,14 +277,14 @@ def blending_example1():
 
 
 def blending_example2():
-    
+
     fig,ax = plt.subplots(2,2)
     im1 = read_image(relpath("external/koch.jpg"),RGB)
     im2 = read_image(relpath("external/markoch.jpg"),RGB)
     mask = read_image(relpath("external/maskoo.jpg"), GRAY_SCALE).astype(bool)
     blend_image = pyramid_blending(im1, im2, mask, 3, 30, 5)
-
-
+    plt.imshow(blend_image)
+    plt.show()
     ax[0,0].imshow(im1)
     ax[0,1].imshow(im2)
     ax[1,0].imshow(mask,cmap='gray')
@@ -296,6 +299,5 @@ def relpath(filename):
     return os.path.join(os.path.dirname(__file__), filename)
 
 if __name__ == "__main__":
-    x = _buildGaussianVec(5)
-    print(x)
-    pyramid_blending()
+    im1_a, im2_a, mask_a, blend_image_a = blending_example1()
+    im1_b, im2_b, mask_b, blend_image_b = blending_example2()
