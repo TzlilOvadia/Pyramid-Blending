@@ -51,7 +51,7 @@ In this project, I implemented the tools required to apply a pyramid blending al
 The tools provided here are learned in Image Processing course @ HUJI.
 if you wish to learn more about this process, please visit [![PyramidBlendingUsingLaplacianPyramid][product-screenshot]](https://becominghuman.ai/image-blending-using-laplacian-pyramids-2f8e9982077f)
 
-Here's an example of the algorithm's output, using images of few of my lecturers (Sorry for the poor sense of humor :)
+Here's an example of the algorithm's output, using images of few of my lecturers (Sorry for the poor sense of humor)
 
 
 ![Alt text](exampleA.png?raw=true "Title")
