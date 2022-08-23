@@ -53,7 +53,7 @@ if you wish to learn more about this process, please visit [![PyramidBlendingUsi
 
 Here's an example of the algorithm's output, using images of few of my lecturers (Sorry for the poor sense of humor :) :
 ![Alt text](exampleA.png?raw=true "Title")
-![Alt text](exampleB.png?raw=true "Title")
+![Alt text](ExampleB.png?raw=true "Title")
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
